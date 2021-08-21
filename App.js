@@ -11,6 +11,7 @@ import React,{useState} from 'react';
 import {
   Button,
   Linking,
+  RefreshControl,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -30,42 +31,73 @@ import {
 
 
 const App = () => {
-  const [name, setName] = useState('tusher');
-  const [session, setSession] = useState({number : 6,title:'state'})
-  const [curent, setCurent] = useState(true);
+ 
+  const [Items,setItems] = useState([
+    {ket:1,'item':'item 1'},
+    {ket:2,'item':'item 2'},
+    {ket:3,'item':'item 3'},
+    {ket:4,'item':'item 4'},
+    {ket:5,'item':'item 5'},
+    {ket:6,'item':'item 6'},
+    {ket:7,'item':'item 7'},
+    {ket:8,'item':'item 8'},
+    {ket:9,'item':'item 9'},
+    {ket:10,'item':'item 10'},
+    {ket:11,'item':'item 11'},
+  ])
 
-  
+  const [Refreshing, setRefreshing] = useState(false)
 
-const onClickHandler= ()=>{
-  setName('SRT');
-  setSession({number:7,title:'Style'});
-  setCurent(false);
+  const onRefresh = ()=>{
+    setRefreshing(true);
+    setItems([...Items,{ket:12,item:'item 12'}]);
+    setRefreshing(false)
+  }
 
-}
+
 
  return(
-    <View style={styles.body}>
-       <Text style={styles.text}>Programming With {name}</Text> 
-       <Text style={styles.text}>This session state is  {session.number} and about is {session.title}</Text> 
-       <Text style={styles.text}>{curent ? 'current session ' : 'next session'}</Text> 
-       <Button title='update state' onPress={onClickHandler}></Button>
-    </View>
+  <ScrollView 
+  horizontal={false} 
+  style={styles.body}
+  refreshControl={
+    <RefreshControl 
+    refreshing={Refreshing}
+    onRefresh={onRefresh}
+    />
+  }
+  >
+  {Items.map((name)=>{
+     return <View style={styles.item} key={name.ket}>
+       <Text style={styles.text} >{name.item}</Text>
+      </View>
+    })}
+  </ScrollView>
  );
 };
 
 const styles = StyleSheet.create({
   body:{
     flex:1,
-    backgroundColor:'#0000ff',
-    alignItems:'center',
-    justifyContent:'center'
+    flexDirection:'column',
+    backgroundColor:'#ffffff',
   },
+  item:{
+    margin:10,
+    backgroundColor:'#4ae1fa',
+    justifyContent:'center',
+    alignItems:'center'
+  },
+
   text:{
     color:'#fff',
-    fontSize:20,
+    fontSize:35,
     fontStyle:'italic',
-    margin:10
-  }
+    margin:10,
+  
+  },
+
+
 });
 
 export default App;
