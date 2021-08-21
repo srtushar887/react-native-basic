@@ -10,6 +10,7 @@ import React,{useState} from 'react';
 
 import {
   Button,
+  FlatList,
   Linking,
   RefreshControl,
   SafeAreaView,
@@ -33,46 +34,67 @@ import {
 const App = () => {
  
   const [Items,setItems] = useState([
-    {ket:1,'item':'item 1'},
-    {ket:2,'item':'item 2'},
-    {ket:3,'item':'item 3'},
-    {ket:4,'item':'item 4'},
-    {ket:5,'item':'item 5'},
-    {ket:6,'item':'item 6'},
-    {ket:7,'item':'item 7'},
-    {ket:8,'item':'item 8'},
-    {ket:9,'item':'item 9'},
-    {ket:10,'item':'item 10'},
-    {ket:11,'item':'item 11'},
+    {key:1,name:'item 1'},
+    {key:2,name:'item 2'},
+    {key:3,name:'item 3'},
+    {key:4,name:'item 4'},
+    {key:5,name:'item 5'},
+    {key:6,name:'item 6'},
+    {key:7,name:'item 7'},
+    {key:8,name:'item 8'},
+    {key:9,name:'item 9'},
+    {key:10,name:'item 10'},
+    {key:11,name:'item 11'},
   ])
 
   const [Refreshing, setRefreshing] = useState(false)
 
   const onRefresh = ()=>{
     setRefreshing(true);
-    setItems([...Items,{ket:12,item:'item 12'}]);
+    setItems([...Items,{key:12,name:'item 12'}]);
     setRefreshing(false)
   }
 
 
 
  return(
-  <ScrollView 
-  horizontal={false} 
-  style={styles.body}
-  refreshControl={
+
+
+  <FlatList
+    // horizontal
+    data={Items}
+    keyExtractor={(item,index)=>index}
+    renderItem={({item})=>(
+      <View style={styles.item}>
+        <Text style={styles.text} >{item.name}</Text>
+       </View>
+    )}
+     refreshControl={
     <RefreshControl 
     refreshing={Refreshing}
     onRefresh={onRefresh}
     />
-  }
-  >
-  {Items.map((name)=>{
-     return <View style={styles.item} key={name.ket}>
-       <Text style={styles.text} >{name.item}</Text>
-      </View>
-    })}
-  </ScrollView>
+     }
+
+  />
+
+
+  // <ScrollView 
+  // horizontal={false} 
+  // style={styles.body}
+  // refreshControl={
+  //   <RefreshControl 
+  //   refreshing={Refreshing}
+  //   onRefresh={onRefresh}
+  //   />
+  // }
+  // >
+  // {Items.map((name)=>{
+  //    return <View style={styles.item} key={name.ket}>
+  //      <Text style={styles.text} >{name.item}</Text>
+  //     </View>
+  //   })}
+  // </ScrollView>
  );
 };
 
