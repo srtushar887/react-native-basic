@@ -19,6 +19,10 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  Touchable,
+  TouchableHighlight,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
   useColorScheme,
   View,
 } from 'react-native';
@@ -35,6 +39,11 @@ import {
 const App = () => {
   
   const [name, setName] = useState('');
+  const [submited, setSubmited] = useState(false);
+
+  const onPressedhandler = ()=>{
+    setSubmited(!submited);
+  }
   
  return(
    <View style={styles.body}>
@@ -49,7 +58,27 @@ const App = () => {
     // editable={false}
     // secureTextEntry
      ></TextInput>
-      <Text style={styles.text}>{name}</Text>
+
+  {/* <Button style={styles.button}
+   title={submited ? 'Clear' : 'Submit'}
+   onPress={onPressedhandler}
+   color="#00f"
+   ></Button> */}
+
+   <TouchableWithoutFeedback
+   style={styles.button}
+    onPress={onPressedhandler}
+    activeOpacity={0.9}
+    underlayColor='#dddddd'
+   >
+     <Text style={styles.text}>{submited ? 'Clear' : 'Submit'}</Text>
+   </TouchableWithoutFeedback>
+
+
+    {submited ? 
+     <Text style={styles.text}>you are registered as {name}</Text>
+    :null}
+     
    </View>
  )
 
@@ -75,8 +104,16 @@ const styles = StyleSheet.create({
     borderColor:'#555',
     borderRadius:5,
     textAlign:'center',
-    fontSize:20
-  }
+    fontSize:20,
+    marginBottom:10
+  },
+
+  button:{
+    width:150,
+    height:70,
+    backgroundColor:'#00ff00',
+    alignItems:'center'
+  },
   
 
 
