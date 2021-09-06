@@ -13,6 +13,8 @@ import {
   Button,
   FlatList,
   Linking,
+  Modal,
+  Pressable,
   RefreshControl,
   SafeAreaView,
   ScrollView,
@@ -42,18 +44,13 @@ const App = () => {
 
   const [name, setName] = useState('');
   const [submited, setSubmited] = useState(false);
+  const [showWarning, setShowWarning] = useState(false);
 
   const onPressedhandler = () => {
     if (name.length > 3) {
       setSubmited(!submited);
     } else {
-      // Alert.alert('Warning','The name should be more three 3 chat',[
-      //   {text:'Do no show again',onPress:()=>console.warn('ok pressed'),style:'destructive'},
-      //   {text:'Cancel',onPress:()=>console.warn('ok pressed'),style:'destructive'},
-      //   {text:'ok',onPress:()=>console.warn('ok pressed'),style:'destructive'},
-      // ],{cancelable:true})
-
-      ToastAndroid.show('The name should be more three 3 chat', ToastAndroid.LONG)
+      setShowWarning(true);
 
     }
 
@@ -61,6 +58,36 @@ const App = () => {
 
   return (
     <View style={styles.body}>
+      <Modal
+        visible={showWarning}
+        transparent
+        onRequestClose={() => {
+          setShowWarning(false)
+        }}
+        animationType='slide'
+        hardwareAccelerated
+      >
+        <View style={styles.centered_view}>
+          <View style={styles.warning_message}>
+            <View style={styles.warning_title}>
+              <Text>Warning</Text>
+            </View>
+            <View style={styles.warning_body}>
+              <Text>The name must be longer then 3 char</Text>
+            </View>
+            <Pressable
+              onPress={() => setShowWarning(false)}
+              android_ripple={{ color: '#fff' }}
+
+            >
+              <Text style={styles.text}>Ok</Text>
+            </Pressable>
+          </View>
+        </View>
+
+
+      </Modal>
+
       <Text style={styles.text}>Please write your name</Text>
       <TextInput
         //  multiline
@@ -109,7 +136,8 @@ const styles = StyleSheet.create({
   text: {
     color: '#000000',
     fontSize: 20,
-    margin: 20
+    margin: 20,
+    textAlign: 'center'
   },
 
   input: {
@@ -129,6 +157,38 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
 
+
+  centered_view: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#00000099'
+  },
+
+  warning_message: {
+    width: 300,
+    height: 300,
+    backgroundColor: '#ffffff',
+    borderColor: '#000',
+    borderWidth: 1,
+    borderRadius: 20
+  },
+
+
+  warning_title: {
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ff0',
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20
+  },
+
+  warning_body: {
+    height: 200,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 
 
 });
