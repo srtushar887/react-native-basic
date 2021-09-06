@@ -40,7 +40,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-
+import CusButton from './CustomButton';
 const App = () => {
 
   const [name, setName] = useState('');
@@ -107,15 +107,8 @@ const App = () => {
    color="#00f"
    ></Button> */}
 
-      <TouchableWithoutFeedback
-        style={styles.button}
-        onPress={onPressedhandler}
-        activeOpacity={0.9}
-        underlayColor='#dddddd'
-      >
-        <Text style={styles.text}>{submited ? 'Clear' : 'Submit'}</Text>
-      </TouchableWithoutFeedback>
 
+      <CusButton onPressedFunction={onPressedhandler} title={submited ? 'Clear' : 'Submit'} />
 
       {submited ?
         <View style={styles.body}>
