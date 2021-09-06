@@ -29,6 +29,7 @@ import {
   TouchableWithoutFeedback,
   useColorScheme,
   View,
+  Image,
 } from 'react-native';
 
 import {
@@ -117,8 +118,15 @@ const App = () => {
 
 
       {submited ?
-        <Text style={styles.text}>you are registered as {name}</Text>
-        : null}
+        <View style={styles.body}>
+          <Text style={styles.text}>you are registered as {name}</Text>
+          <Image style={styles.image} source={require('./assets/done.jpeg')} resizeMode='stretch' />
+        </View>
+
+        :
+        // <Image style={styles.image} source={require('./assets/error.jpeg')} resizeMode='stretch' />
+        <Image style={styles.image} source={{ uri: 'https://e7.pngegg.com/pngimages/1018/913/png-clipart-computer-icons-done-angle-rim-thumbnail.png' }} resizeMode='stretch' />
+      }
 
     </View>
   )
@@ -188,6 +196,13 @@ const styles = StyleSheet.create({
     height: 200,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+
+  image: {
+    width: 100,
+    height: 100,
+    justifyContent: 'center',
+    margin: 10
   }
 
 
