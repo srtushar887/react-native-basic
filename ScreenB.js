@@ -9,11 +9,14 @@ import {
 
 
 
-export default function ScreenB({ navigation }) {
+export default function ScreenB({ navigation, route }) {
+
+    const { ItemName, ItemId } = route.params;
 
     const onPressedhandler = () => {
-        // navigation.navigate('Screen_A');
-        navigation.goBack();
+        navigation.navigate('Screen_A', { Message: 'Message from B' });
+        // navigation.goBack();
+        // navigation.setParams({ ItemId: 14 });
     };
 
     return (
@@ -24,6 +27,8 @@ export default function ScreenB({ navigation }) {
                 style={({ pressed }) => ({ backgroundColor: pressed ? '#ddd' : '#0f0' })}
             >
                 <Text styles={styles.text}>Go Back</Text>
+                <Text styles={styles.text}>{ItemName}</Text>
+                <Text styles={styles.text}>{ItemId}</Text>
             </Pressable>
         </View>
     )

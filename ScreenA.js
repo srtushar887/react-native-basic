@@ -9,12 +9,13 @@ import {
 
 
 
-export default function ScreenA({ navigation }) {
+export default function ScreenA({ navigation, route }) {
 
     const onPressedhandler = () => {
-        // navigation.navigate('Screen_B');
+        navigation.navigate('Screen_B');
+        // navigation.navigate('Screen_B', { ItemName: 'Item form Screen A', ItemId: 12 });
         // navigation.openDrawer();
-        navigation.toggleDrawer();
+        // navigation.toggleDrawer();
     };
 
 
@@ -25,8 +26,9 @@ export default function ScreenA({ navigation }) {
                 onPress={onPressedhandler}
                 style={({ pressed }) => ({ backgroundColor: pressed ? '#ddd' : '#0f0' })}
             >
-                <Text styles={styles.text}>Toggle Drawer</Text>
+                <Text styles={styles.text}>Go To Screen B</Text>
             </Pressable>
+            <Text styles={styles.text}>{route.params?.Message}</Text>
         </View>
     )
 }

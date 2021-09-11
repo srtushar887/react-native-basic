@@ -64,7 +64,9 @@ function App() {
           drawerIcon: ({ focused }) => {
             <FontAwesome5 name="btc" size={focused ? 25 : 20} />
           }
-        }}></Drawer.Screen>
+        }}
+          initialParams={{ ItemName: 'Item form Drawer', ItemId: 12 }}
+        ></Drawer.Screen>
       </Drawer.Navigator>
     </NavigationContainer>
   )
