@@ -12,23 +12,23 @@ import React, { useState } from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
 
-import ScreenA from './ScreenA';
-import ScreenB from './ScreenB';
+import Home from './Home';
+import Login from './src/screens/Login';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { forUIKit } from '@react-navigation/stack/lib/typescript/src/TransitionConfigs/HeaderStyleInterpolators';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
 
 
 
 
-const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 
 
 function App() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator
-        initialRouteName="Screen_A"
+      <Stack.Navigator
+        initialRouteName="Login"
         drawerPosition="right"
         drawerType="slide"
         overlayColor="#00000090"
@@ -53,21 +53,11 @@ function App() {
           }
         }}
       >
-        <Drawer.Screen name="Screen_A" component={ScreenA} options={{
-          title: 'Screen_A Title',
-          drawerIcon: ({ focused }) => {
-            <FontAwesome5 name="asymmetrik" size={focused ? 25 : 20} />
-          }
-        }}></Drawer.Screen>
-        <Drawer.Screen name="Screen_B" component={ScreenB} options={{
-          title: 'Screen_B Title',
-          drawerIcon: ({ focused }) => {
-            <FontAwesome5 name="btc" size={focused ? 25 : 20} />
-          }
-        }}
-          initialParams={{ ItemName: 'Item form Drawer', ItemId: 12 }}
-        ></Drawer.Screen>
-      </Drawer.Navigator>
+        <Stack.Screen name="Login" component={Login} options={{
+          headerShown: false,
+        }}></Stack.Screen>
+        <Stack.Screen name="Home" component={Home} ></Stack.Screen>
+      </Stack.Navigator>
     </NavigationContainer>
   )
 }
